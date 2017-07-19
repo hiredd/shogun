@@ -35,6 +35,13 @@
 
 namespace shogun
 {
+<<<<<<< HEAD
+=======
+	extern uint32_t sg_random_seed;
+#ifdef HAVE_CXX11
+	typedef std::unordered_map<BaseTag, Any> ParametersMap;
+#else
+>>>>>>> remove-random-functions-in-CMath
 	typedef std::map<BaseTag, Any> ParametersMap;
 	typedef std::map<std::string, std::pair<std::string, std::string>>
 	    ObsParamsList;
@@ -495,7 +502,7 @@ void CSGObject::init()
 	m_parameters = new Parameter();
 	m_model_selection_parameters = new Parameter();
 	m_gradient_parameters=new Parameter();
-	m_rng = std::unique_ptr<CRandom>(new CRandom());
+	m_rng = std::unique_ptr<CRandom>(new CRandom(sg_random_seed));
 	m_generic = PT_NOT_GENERIC;
 	m_load_pre_called = false;
 	m_load_post_called = false;
@@ -870,9 +877,4 @@ void CSGObject::list_observable_parameters()
 		    "%s [%s]: %s\n", x.first.c_str(), x.second.first.c_str(),
 		    x.second.second.c_str());
 	}
-}
-
-void CSGObject::set_seed(int32_t seed)
-{
-	m_rng->set_seed(seed);
 }
